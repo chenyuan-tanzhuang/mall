@@ -17,5 +17,7 @@ export default {
 </script>
 
 <style>
-
+  html {
+    margin: 0;
+  }
 </style>
