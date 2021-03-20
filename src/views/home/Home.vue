@@ -43,12 +43,15 @@ export default {
     }
   },
   created() {
-    homeBannerData().then(res => {
-      this.bannerList = res.data.banner.list
-      this.recommend = res.data.recommend.list
-    }, err => {
-
-    })
+    this.getHomeBannerData()
+  },
+  methods: {
+    getHomeBannerData() {
+      homeBannerData().then(res => {
+        this.bannerList = res.data.banner.list
+        this.recommend = res.data.recommend.list
+      })
+    },
   },
 }
 </script>
