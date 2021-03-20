@@ -25,7 +25,7 @@ import HomeSwiper from './childComp/HomeSwiper'
 import HomeRecommend from './childComp/HomeRecommend'
 import HomeFeature from './childComp/HomeFeature'
 
-import {homeBannerData} from 'network/home'
+import {homeBannerData, homeGoodsData} from 'network/home'
 
 export default {
   name: 'Home',
@@ -33,25 +33,41 @@ export default {
     NavBar,
     Tabs,
     HomeSwiper,
+    HomeFeature,
     HomeRecommend,
-    HomeFeature
+    homeGoodsData
   },
   data() {
     return {
       bannerList: [],
-      recommend: []
+      recommend: [],
+      goods: {
+        'pop':{page: 0, list: {}},
+        'new':{page: 0, list: {}},
+        'sell':{page: 0, list: {}}
+      }
     }
   },
   created() {
-    this.getHomeBannerData()
+    this.getHomeBannerData();
+    this.getHomeGoodsData('pop')
   },
   methods: {
     getHomeBannerData() {
       homeBannerData().then(res => {
-        this.bannerList = res.data.banner.list
+        this.bannerList = res.data.banner.list;
         this.recommend = res.data.recommend.list
       })
     },
+    getHomeGoodsData(type) {
+      const page = this.goods[type].page + 1;
+      homeGoodsData(type, page).then(res => {
+        // 把取到的数据存在goods中
+        // this.goods[type].list.push(...res.data.list);
+        // 当前页数+1
+        this.goods[type].page += 1;
+      })
+    }
   },
 }
 </script>
