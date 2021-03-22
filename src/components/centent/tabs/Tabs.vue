@@ -24,6 +24,8 @@ export default {
   methods: {
     tabsClick(index) {
       this.activeIndex = index
+      // 把当前点击的 index 传递给 父组件
+      this.$emit('tabsClick', index);
     }
   },
 }
@@ -34,6 +36,7 @@ export default {
     height: 40px;
     line-height: 40px;
     text-align: center;
+    background-color: #fff;
   }
   .tabs-box > div {
     flex: 1;

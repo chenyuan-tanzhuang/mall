@@ -28,6 +28,7 @@ export default {
     font-size: 12px;
     padding: 15px 0 20px;
     border-bottom: 8px solid #eee;
+    background-color: #fff;
   }
   .recommend-box > div {
     flex: 1;

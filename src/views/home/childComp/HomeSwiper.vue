@@ -25,6 +25,8 @@ export default {
   }
 }
 </script>
-<style lang="">
-  
+<style scoped>
+  img {
+    width: 100%;
+  }
 </style>
