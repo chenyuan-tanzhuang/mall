@@ -1,7 +1,7 @@
 <template>
   <div class="goods-item" @click="itemClick">
-    <!-- @load="imageLoad" -->
-    <img :src="goodsItem.show.img" />
+    <!-- 监听每张图片加载完成 @load="imageLoad" -->
+    <img :src="goodsItem.show.img" @load="imageLoad" />
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="price">{{ goodsItem.price }}</span>
@@ -21,9 +21,14 @@ export default {
     }
   },
   methods: {
+    imageLoad() {
+      // 发送到事件总线
+      this.$bus.$emit('itemImgLoad')
+    },
+    // 点击跳转
     itemClick() {
-    }
-    // 
+      this.$router.push('/detail/' + this.goodsItem.iid)
+    },
   },
 }
 </script>
