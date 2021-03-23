@@ -39,6 +39,10 @@ export default {
 }
 </script>
 <style scoped>
+  .detail-tab {
+    position: relative;
+    z-index: 9;
+  }
   .tab-left img {
     margin-top: 10px;
   }

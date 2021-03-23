@@ -3,7 +3,7 @@ import axios from 'axios'
 export function request(config) {
   // 1.创建axios实例
   const instance = axios.create({
-    
+    baseURL: '',
     timeout: 5000
   })
   // 2.拦截器
