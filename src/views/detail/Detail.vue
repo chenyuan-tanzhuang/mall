@@ -2,23 +2,27 @@
   <div class="detail">
     <detail-nav-bar />
     <detail-swiper :top-images="topImages" />
+    <detail-base-info :goods="goods" />
   </div>
 </template>
 <script>
 import DetailNavBar from './childComps/DetailNavBar'
 import DetailSwiper from './childComps/DetailSwiper'
+import DetailBaseInfo from './childComps/DetailBaseInfo'
 
-import {getDetail} from 'network/detail'
+import {getDetail, Goods} from 'network/detail'
 export default {
   name: 'Detail',
   components: {
     DetailNavBar,
-    DetailSwiper
+    DetailSwiper,
+    DetailBaseInfo
   },
   data() {
     return {
       iid: null,
-      topImages: []
+      topImages: [],
+      goods: {}
     }
   },
   created() {
@@ -29,7 +33,10 @@ export default {
   methods: {
     gitDetailData(iid) {
       getDetail(iid).then(res => {
-        this.topImages = res.result.itemInfo.topImages
+        let data = res.result;
+        console.log('object :>> ', data);
+        this.topImages = data.itemInfo.topImages;
+        this.goods = new Goods(data.itemInfo, data.columns, data.shopInfo.services)
       })
     }
   },
@@ -38,6 +45,8 @@ export default {
   },
 }
 </script>
-<style >
-  
+<style scoped>
+  .detail {
+    height: 100vh;
+  }
 </style>
