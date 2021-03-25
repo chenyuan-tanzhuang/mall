@@ -12,6 +12,9 @@
       <detail-comment-info ref="comment" :comment-info="commentInfo" />
       <goods-list ref="recommends" :goods="recommends" />
     </scroll>
+    <detail-bottom-bar class="detailBottomBar" ref="detailBottomBar" @addCart="addCart" />
+    <!-- 组件点击事件需要添加事件修饰符 -->
+    <back-top @click.native="backClick" v-show="isShowBackTop" />
   </div>
 </template>
 <script>
@@ -22,17 +25,18 @@ import DetailShopInfo from './childComps/DetailShopInfo'
 import DetailGoodsInfo from './childComps/DetailGoodsInfo'
 import DetailParamsInfo from './childComps/DetailParamsInfo'
 import DetailCommentInfo from './childComps/DetailCommentInfo'
+import DetailBottomBar from './childComps/DetailBottomBar'
 import GoodsList from 'components/centent/goods/GoodsList'
 
 import Scroll from 'components/common/scroll/Scroll'
 
 import {getDetail, Goods, Shop, GoodsParam, getRecommend} from 'network/detail'
 
-import {mixinsData} from 'common/mixin'
+import {mixinsData, backTopMixin} from 'common/mixin'
 import {debounce, debouceY} from 'common/utils'
 export default {
   name: 'Detail',
-  mixins: [mixinsData],
+  mixins: [mixinsData, backTopMixin],
   components: {
     DetailNavBar,
     DetailSwiper,
@@ -41,6 +45,7 @@ export default {
     DetailGoodsInfo,
     DetailParamsInfo,
     DetailCommentInfo,
+    DetailBottomBar,
     GoodsList,
     Scroll
   },
@@ -56,7 +61,7 @@ export default {
       recommends: [],
       themeTopY: [],
       getThemeTopYData: null,
-      titleIndex: null
+      titleIndex: 0
     }
   },
   created() {
@@ -129,6 +134,19 @@ export default {
           }
         }
       }
+      this.isShowBack(position);
+    },
+    addCart() {
+      // 获取购物车需要展示的数据
+      const product = {};
+      product.image = this.topImages[0];
+      proudct.title = this.goods.title;
+      proudct.desc = this.goods.desc;
+      proudct.price = this.goods.realPrice;
+      proudct.iid = this.iid
+
+      // 将点击的商品添加到购物车
+      this.$store.commit('addCart', product)
     }
   },
   updated() {
@@ -153,6 +171,6 @@ export default {
     overflow: hidden;
   }
   .content {
-    height: calc(100% - 44px);
+    height: calc(100% - 44px - 49px);
   }
 </style>

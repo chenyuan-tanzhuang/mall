@@ -29,7 +29,7 @@ import NavBar from 'components/common/navBar/NavBar'
 import Tabs from 'components/centent/tabs/Tabs'
 import GoodsList from 'components/centent/goods/GoodsList'
 import Scroll from 'components/common/scroll/Scroll'
-import BackTop from 'components/centent/backtop/BackTop'
+// import BackTop from 'components/centent/backtop/BackTop'
 
 import HomeSwiper from './childComp/HomeSwiper'
 import HomeRecommend from './childComp/HomeRecommend'
@@ -37,15 +37,16 @@ import HomeFeature from './childComp/HomeFeature'
 
 import {homeBannerData, homeGoodsData} from 'network/home'
 import {debounce} from 'common/utils'
-
+import {mixinsData, backTopMixin} from 'common/mixin'
 export default {
   name: 'Home',
+  mixins: [mixinsData, backTopMixin],
   components: {
     NavBar,
     Tabs,
     GoodsList,
     Scroll,
-    BackTop,
+    // BackTop,
     HomeSwiper,
     HomeFeature,
     HomeRecommend,
@@ -61,7 +62,7 @@ export default {
         'sell':{page: 0, list: []}
       },
       currentType: 'pop',
-      isShowBackTop: false,
+      // isShowBackTop: false,
       tabOffsetTop: 0,
       isTabFixed: false,
       saveY: 0,
@@ -109,8 +110,10 @@ export default {
     contentScroll(position) {
       // 拿到页面滚动的位置 是否显示backtop图标
       this.isShowBackTop = -(position.y) > 500
-      //
+      // 导航停留效果
       this.isTabFixed = -(position.y) > this.tabOffsetTop
+      // back 显示和隐藏
+      this.isShowBack(position);
     },
     // 返回顶部
     backClick() {
