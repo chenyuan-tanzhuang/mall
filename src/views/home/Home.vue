@@ -64,7 +64,8 @@ export default {
       isShowBackTop: false,
       tabOffsetTop: 0,
       isTabFixed: false,
-      saveY: 0
+      saveY: 0,
+      itemImgListener: null
     }
   },
   computed: {
@@ -92,7 +93,6 @@ export default {
         this.goods[type].list.push(...res.data.list)
         // 当前页数+1
         this.goods[type].page += 1;
-
         // 以完成了加载更多数据 初始化 pullup
         this.$refs.scroll.finishPullUp()
       })
@@ -114,7 +114,7 @@ export default {
     },
     // 返回顶部
     backClick() {
-      this.$refs.scroll.scrollTo(0, 0)
+      this.$refs.scroll.scrollTo(0, 0);
     },
     tabsClick(index) {
       switch (index) {
@@ -137,14 +137,13 @@ export default {
     },
   },
   mounted() {
-    // 监听图片加载完成
-    const refresh = debounce(this.$refs.scroll.refresh, 500);
-    this.$bus.$on('itemImgLoad', () => {
-      // 等待图片异步加载完成 重新计算可滚动区域
-      // this.$refs.scroll.refresh();
+    this.itemImgListener = () => {
       // 防抖函数 
       refresh();
-    })
+    }
+    // 监听图片加载完成
+    const refresh = debounce(this.$refs.scroll.refresh, 500);
+    this.$bus.$on('itemImgLoad', this.itemImgListener)
     
   },
   // 活跃
@@ -156,6 +155,8 @@ export default {
   deactivated() {
     // 拿到用户离开当前页面时当前页面滚动的距离
     this.saveY = this.$refs.scroll.getScrollY()
+    // 取消全局事件的监听
+    this.$bus.$off('itemImgLoad', this.itemImgListener)
   },
 }
 </script>

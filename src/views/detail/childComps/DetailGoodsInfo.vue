@@ -5,9 +5,11 @@
       <div class="desc">{{ detailInfo.desc }}</diV>
       <div class="end"></div>
     </div>
-    <div class="info-key">{{ detailInfo.detailImage[0].key }}</div>
-    <div class="info-list">
-      <img v-for="(item, index) in detailInfo.detailImage[0].list" :src="item" :key="index" @load="imgLoad" />
+    <div class="" v-for="(item, index) in detailInfo.detailImage" :key="index">
+      <div class="info-key">{{ item.key }}</div>
+      <div class="info-list">
+        <img v-for="(item, index) in item.list" :src="item" :key="index" @load="imgLoad" />
+      </div>
     </div>
   </div>
 </template>
@@ -30,14 +32,7 @@ export default {
   },
   methods: {
     imgLoad() {
-      if(++this.currIndex === this.imgIndex) {
-        this.$emit("imageLoad");
-      }
-    }
-  },
-  watch: {
-    goodsImgeas() {
-      this.imgIndex = this.detailInfo.detailImage[0].list.length
+      this.$emit("imagesInfo")
     }
   }
 }

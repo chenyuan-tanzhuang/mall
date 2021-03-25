@@ -94,4 +94,7 @@ export default {
     position: relative;
     top: 2px;
   }
+  .detail-services > span:last-child {
+    display: none;
+  }
 </style>

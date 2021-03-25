@@ -1,7 +1,7 @@
 <template>
   <div class="goods-item" @click="itemClick">
     <!-- 监听每张图片加载完成 @load="imageLoad" -->
-    <img :src="goodsItem.show.img" @load="imageLoad" />
+    <img :src="showImages" @load="imageLoad" />
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="price">{{ goodsItem.price }}</span>
@@ -20,9 +20,21 @@ export default {
       }
     }
   },
+  computed: {
+    showImages() {
+      return this.goodsItem.image || this.goodsItem.show.img
+    }
+  },
   methods: {
     imageLoad() {
       // 发送到事件总线
+      // 1. 通过路由判断
+      // if(this.$route.path.indexOf('/home')){
+      //   this.$bus.$emit('itemImgLoadHome')
+      // }else if(this.$route.path.indexOf('/detail')){
+      //   this.$bus.$emit('itemImgLoadDetail')
+      // }
+      // 2.
       this.$bus.$emit('itemImgLoad')
     },
     // 点击跳转

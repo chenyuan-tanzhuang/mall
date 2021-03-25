@@ -31,6 +31,7 @@ export default {
   methods: {
     tabClick(index) {
       this.actviveIndex = index;
+      this.$emit("titleClick", index);
     },
     backClick() {
       this.$router.back();

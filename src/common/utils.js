@@ -7,3 +7,41 @@ export function debounce(fn, delay) {
     }, delay)
   }
 }
+// 
+export function debouceY(fnnc, delay) {
+  let timer2 = null
+  return function (...args) {
+    if(timer2) {
+      clearTimeout(timer2)
+    }
+    timer2 = setTimeout(() => {
+      fnnc(...args)
+    }, delay)
+  }
+}
+
+export function formatDate(date, fmt) {
+  // 获取年份
+  if (/(y+)/.test(fmt)) {
+    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+  }
+  // 
+  let o = {
+    "M+" : date.getMonth() +1,
+    "d+" : date.getDate(),
+    "h+" : date.getHours(),
+    "m+" : date.getMinutes(),
+    "s+" : date.getSeconds()
+  };
+  for (let k in o) {
+    if (new RegExp(`(${k})`).test(fmt)) {
+      let srt = o[k] + ''  ;    
+      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : padLeftZero(srt));
+    }
+  }
+  return fmt
+};
+
+function padLeftZero(str) {
+  return ('00' + str).substr(str.length);
+}
