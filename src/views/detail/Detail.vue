@@ -12,7 +12,7 @@
       <detail-comment-info ref="comment" :comment-info="commentInfo" />
       <goods-list ref="recommends" :goods="recommends" />
     </scroll>
-    <detail-bottom-bar class="detailBottomBar" ref="detailBottomBar" @addCart="addCart" />
+    <detail-bottom-bar class="detailBottomBar" ref="detailBottomBar" @addToCart="addCart" />
     <!-- 组件点击事件需要添加事件修饰符 -->
     <back-top @click.native="backClick" v-show="isShowBackTop" />
   </div>
@@ -140,13 +140,14 @@ export default {
       // 获取购物车需要展示的数据
       const product = {};
       product.image = this.topImages[0];
-      proudct.title = this.goods.title;
-      proudct.desc = this.goods.desc;
-      proudct.price = this.goods.realPrice;
-      proudct.iid = this.iid
+      product.title = this.goods.title;
+      product.desc = this.goods.desc;
+      product.price = this.goods.realPrice;
+      product.iid = this.iid;
 
-      // 将点击的商品添加到购物车
-      this.$store.commit('addCart', product)
+      // 将点击的商品添加到购物车 修改 store 的内容 要使用 mutations
+      // this.$store.commit('addCart', product)
+      this.$store.dispatch("addCart", product)
     }
   },
   updated() {

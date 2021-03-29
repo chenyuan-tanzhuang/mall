@@ -5,12 +5,12 @@
         <img slot="item-icon-active" src="~assets/images/tabbar/home_active.svg" alt="">
         <div slot="item-text"><span>首页</span></div>
       </tabbar-item>
-      <tabbar-item path="/cart" activeColor="salmon">
+      <tabbar-item path="/category" activeColor="salmon">
         <img slot="item-icon" src="~/assets/images/tabbar/category.svg" alt="">
         <img slot="item-icon-active" src="~/assets/images/tabbar/category_active.svg" alt="">
         <div slot="item-text"><span>分类</span></div>
       </tabbar-item>
-      <tabbar-item path="/category" activeColor="salmon">
+      <tabbar-item path="/cart" activeColor="salmon">
         <img slot="item-icon" src="~/assets/images/tabbar/shopcart.svg" alt="">
         <img slot="item-icon-active" src="~/assets/images/tabbar/shopcart_active.svg" alt="">
         <div slot="item-text"><span>包裹</span></div>

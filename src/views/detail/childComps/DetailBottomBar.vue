@@ -33,8 +33,7 @@ export default {
       this.isCollect = !this.isCollect
     },
     addCart() {
-      console.log('点击添加到购物车');
-      this.$emit("addCart");
+      this.$emit("addToCart");
     }
   },
 }
