@@ -26,10 +26,10 @@ export default {
 </script>
 <style scoped>
   .cate-list {
-    height: calc(100% - 44px);
+    height: calc(100% - 133px);
     overflow: hidden;
   }
   .content {
-    height: calc(100% - 49px);
+    height: 100%;
   }
 </style>

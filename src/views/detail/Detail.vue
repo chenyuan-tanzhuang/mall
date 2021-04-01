@@ -147,7 +147,13 @@ export default {
 
       // 将点击的商品添加到购物车 修改 store 的内容 要使用 mutations
       // this.$store.commit('addCart', product)
-      this.$store.dispatch("addCart", product)
+      this.$store.dispatch("addCart", product).then(res => {
+        // 添加到购物车成功  弹窗
+        
+      })
+
+      
+
     }
   },
   updated() {
